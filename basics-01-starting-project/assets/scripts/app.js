@@ -17,8 +17,14 @@ function add(){
   currentResult += enteredNumber;
   //currentRestult++ increment variable+1 // currentResult-- dicrement-1
   createAndWriteLog('+', initialResult, enteredNumber);
-  logEntries.push(enteredNumber);
-  console.log(logEntries[1]);
+  const logEntry = {
+    operation: 'ADD',
+    prevResult: initialResult,
+    number: enteredNumber,
+    result: currentResult
+  };
+  logEntries.push(logEntry);
+  console.log(logEntries);
   
 }
 
