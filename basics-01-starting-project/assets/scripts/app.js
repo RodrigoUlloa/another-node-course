@@ -1,5 +1,6 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
+let logEntries= [];
 
 function getUserNumberInput() {
   return parseInt(userInput.value);
@@ -16,6 +17,8 @@ function add(){
   currentResult += enteredNumber;
   //currentRestult++ increment variable+1 // currentResult-- dicrement-1
   createAndWriteLog('+', initialResult, enteredNumber);
+  logEntries.push(enteredNumber);
+  console.log(logEntries[1]);
   
 }
 
