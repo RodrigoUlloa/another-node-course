@@ -37,6 +37,7 @@ function subtract(){
   currentResult = currentResult - enteredNumber;
   createAndWriteLog('-', initialResult, enteredNumber);
   writeToLog('SUBTRACT', initialResult, enteredNumber, currentResult)
+  
 }
 
 function mutiply(){
