@@ -10,6 +10,12 @@ let hasBonusLife = true;
 
 adjustHealthBars(chosenMaxLife);
 
+function reset() {
+  currentMonterHealth = chosenMaxLife;
+  currentPlayerHealth = chosenMaxLife;
+  resetGame(chosenMaxLife);
+}
+
 function endRound() {
   const initialPlayerHealth = currentMonterHealth;
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
@@ -26,9 +32,13 @@ function endRound() {
   if (currentMonterHealth <= 0 && currentPlayerHealth > 0){
     alert('c muere');
   } else if (currentPlayerHealth <= 0 && currentMonterHealth > 0) {
-    alert('me muero unu')
+    alert('me muero unu');
   } else if (currentPlayerHealth <= 0 && currentMonterHealth <= 0) {
-    alert('empate')
+    alert('empate');
+  }
+
+  if(currentMonterHealth <= 0 || currentPlayerHealth <= 0){
+    reset();
   }
 }
 
