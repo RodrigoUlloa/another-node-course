@@ -28,9 +28,15 @@ function calculateResult(calculationType){
   if (calculationType === 'ADD') {
     currentResult += enteredNumber;
     mathOperator = '+';
-  } else {
+  } else if (calculationType === 'SUBTRACT'){
     currentResult -= enteredNumber;
-    mathOperator = '-'
+    mathOperator = '-';
+  } else if (calculationType === 'MULTIPLY'){
+    currentResult *= enteredNumber;
+    mathOperator = '*';
+  } else if (calculationType === 'DIVIDE') {
+    currentResult /= enteredNumber;
+    mathOperator = '/';
   }
   
   createAndWriteLog(mathOperator, initialResult, enteredNumber);
@@ -46,19 +52,11 @@ function subtract(){
 }
 
 function mutiply(){
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult
-  currentResult *= enteredNumber;
-  createAndWriteLog('*', initialResult, enteredNumber);
-  writeToLog('MULTIPLY', initialResult, enteredNumber, currentResult)
+  calculateResult('MULTIPLY');
 }
 
 function divide(){
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult
-  currentResult /= enteredNumber;
-  createAndWriteLog('/', initialResult, enteredNumber);
-  writeToLog('DIVDE', initialResult, enteredNumber, currentResult)
+  calculateResult('DIVIDE');
 }
 
 addBtn.addEventListener('click', add);
