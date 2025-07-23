@@ -4,19 +4,30 @@ const MONSTER_ATTACK_VALUE = 16;
 const HEAL_VALUE = 20;
 
 let chosenMaxLife = 100;
-let currentMonterHealt = chosenMaxLife;
-let currentPlayerHealt = chosenMaxLife;
+let currentMonterHealth = chosenMaxLife;
+let currentPlayerHealth = chosenMaxLife;
+let hasBonusLife = true;
 
 adjustHealthBars(chosenMaxLife);
 
 function endRound() {
+  const initialPlayerHealth = currentMonterHealth;
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
-  currentPlayerHealt -= playerDamage;
-  if (currentMonterHealt <= 0 && currentPlayerHealt > 0){
+  currentPlayerHealth -= playerDamage;
+
+  if (currentPlayerHealth <= 0 && hasBonusLife ){
+    hasBonusLife = false;
+    removeBonusLife();
+    currentPlayerHealth = initialPlayerHealth;
+    setPlayerHealth(initialPlayerHealth);
+    alert('jackpot!! BONUS LIFE');
+  }
+
+  if (currentMonterHealth <= 0 && currentPlayerHealth > 0){
     alert('c muere');
-  } else if (currentPlayerHealt <= 0 && currentMonterHealt > 0) {
+  } else if (currentPlayerHealth <= 0 && currentMonterHealth > 0) {
     alert('me muero unu')
-  } else if (currentPlayerHealt <= 0 && currentMonterHealt <= 0) {
+  } else if (currentPlayerHealth <= 0 && currentMonterHealth <= 0) {
     alert('empate')
   }
 }
@@ -29,7 +40,7 @@ function attackMonster(mode) {
     maxDamage = STRONG_ATTACK_VALUE;
   }
   const damage = dealMonsterDamage(maxDamage);
-  currentMonterHealt -= damage;
+  currentMonterHealth -= damage;
   endRound();
 }
 
@@ -43,14 +54,14 @@ function strongAstrongAttackBtn(){
 
 function healPlayerHandler(){
   let healValue;
-  if (currentPlayerHealt >= chosenMaxLife - HEAL_VALUE){
+  if (currentPlayerHealth >= chosenMaxLife - HEAL_VALUE){
     alert('ya teni mucha vida deja de wear');
-    healValue = chosenMaxLife - currentPlayerHealt;
+    healValue = chosenMaxLife - currentPlayerHealth;
   } else {
     healValue = HEAL_VALUE;
   }
   increasePlayerHealth(healValue);
-  currentPlayerHealt += healValue;
+  currentPlayerHealth += healValue;
   endRound();
 }
 
