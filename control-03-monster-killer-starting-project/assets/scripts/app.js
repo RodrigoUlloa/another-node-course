@@ -15,6 +15,7 @@ const enteredValue = prompt('cuanta vida queri', '100');
 
 let chosenMaxLife = parseInt(enteredValue);
 let battleLog = [];
+let lastLoggedEntry;
 
 if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
   chosenMaxLife = 100;
@@ -226,10 +227,10 @@ function printLogHandler(){
     console.log('--------------');
   }
   let j = 0;
-  while(j < 3){
+  do {
     console.log(j);
     j++;
-  }
+  } while(j < 3);
   // for (let i = 10; i > 0;){
   //   i--;
   //   console.log(i);
@@ -239,14 +240,15 @@ function printLogHandler(){
   // }
   let i = 0;
   for (const logEntry of battleLog){
-    console.log(`#${i}`);
-    for (const key in logEntry){
-      console.log(`${key} => ${logEntry[key]}`)
-      // console.log(key);
-      //console.log(logEntry['event']); //the name inside of [] has to be string (or a variable that holds the property name you want to access)
-      // console.log(logEntry[key])
+    if (!lastLoggedEntry && lastLoggedEntry !== 0 || lastLoggedEntry < i){
+      console.log(`#${i}`);
+      for (const key in logEntry){
+        console.log(`${key} => ${logEntry[key]}`);
+      }
+      lastLoggedEntry = i;
+      break;
     }
-    i++
+    i++;
   }
 }
 
