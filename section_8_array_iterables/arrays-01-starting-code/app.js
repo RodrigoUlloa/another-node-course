@@ -39,3 +39,9 @@ console.log(hobbies);
 hobbies[1] = "Codign";
 hobbies[5] = "Reading";
 console.log(hobbies);
+
+hobbies.splice(0, 0, "Good Food");
+console.log(hobbies);
+
+const removedElements = hobbies.splice(-2, 1);
+console.log(hobbies);
