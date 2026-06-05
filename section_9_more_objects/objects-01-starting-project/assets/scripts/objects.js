@@ -10,6 +10,7 @@ let person = {
   greet: function () {
     alert("Hi there");
   },
+  1.5: "hello",
 };
 
 //person.age = 31;
@@ -19,3 +20,5 @@ person.age = null;
 person.isAdmin = true;
 
 console.log(person["first name"]);
+console.log(person[1.5]);
+console.log(person);
