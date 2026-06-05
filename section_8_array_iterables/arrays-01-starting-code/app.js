@@ -115,6 +115,25 @@ const transformedData = data.split(";");
 transformedData[1] = +transformedData[1];
 console.log(transformedData);
 
-const nameFramgments = ["Max", "Piri"];
-const name = nameFramgments.join(" ");
+const nameFragments = ["Max", "Piri"];
+const name = nameFragments.join(" ");
 console.log(name);
+
+const copiedNameFragments = [...nameFragments];
+nameFragments.push("Mr");
+console.log(nameFragments, copiedNameFragments);
+console.log(Math.min(...prices));
+
+const persons = [
+  { name: "Max", age: 30 },
+  { name: "Manuel", age: 31 },
+];
+const copiedPersons = persons.map((person) => ({
+  name: person.name,
+  age: person.age,
+}));
+
+persons.push({ name: "Anna", age: 29 });
+persons[0].age = 31;
+
+console.log(persons, copiedPersons);
