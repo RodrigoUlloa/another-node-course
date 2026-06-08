@@ -1,5 +1,15 @@
+class Product {
+  title = "DEFAULT";
+  imageUrl;
+  description;
+  price;
+}
+
+console.log(new Product());
+
 const productList = {
   products: [
+    //new Product(),
     {
       title: "A pillow",
       imageUrl:
@@ -12,7 +22,7 @@ const productList = {
       imageUrl:
         "https://imgs.search.brave.com/zhNGJkhnPjZb2DZj-AY2HbFUKKJ9HdYB7-MxH-5wjHE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNy8x/MS8xMC8wOS8wMS9j/YXJwZXQtMjkzNTc3/M182NDAuanBn",
       price: 19.99,
-      description: "A Soft pillow",
+      description: "A carpet which you might like - or not.",
     },
   ],
   render() {
@@ -21,13 +31,13 @@ const productList = {
     prodList.className = "product-list";
     for (const prod of this.products) {
       const prodEl = document.createElement("li");
-      prodEl.className = "prodcut-item";
+      prodEl.className = "product-item";
       prodEl.innerHTML = `
       <div>
         <img src="${prod.imageUrl}" alt="${prod.title}">
         <div class="product-item__content">
-          <h2>${this.title}</h2>
-          <h3>\$${this.price}</h3>
+          <h2>${prod.title}</h2>
+          <h3>\$${prod.price}</h3>
           <p>${prod.description}</p>
           <button>Add to createElement</button>
         </div>
