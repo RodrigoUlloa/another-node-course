@@ -11,7 +11,8 @@
 //     );
 //   }
 // }
-function Person() {
+function person() {
+  this = {};
   this.age = 30;
   this.name = "Max";
   this.greet = function () {
@@ -21,5 +22,5 @@ function Person() {
   };
 }
 
-const person = new Person();
-person.greet();
+const p = new person();
+p.greet();
