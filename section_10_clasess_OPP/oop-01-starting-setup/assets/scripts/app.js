@@ -118,15 +118,16 @@ class ProductItem extends Component {
 }
 
 class ProductList extends Component {
-  products = [];
+  #products = [];
 
   constructor(renderHookId) {
-    super(renderHookId);
+    super(renderHookId, false);
+    this.render();
     this.fetchProducts();
   }
 
   fetchProducts() {
-    this.products = [
+    this.#products = [
       new Product(
         "A pillow",
         "https://imgs.search.brave.com/aDUlEAI4Je-qmTs1SSWijVZJWWfAxL0LnVs0UXggXZA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/NzA3ODYyNDAwNjYt/YzBkNzUzNzExY2Zl/P2ZtPWpwZyZxPTYw/Jnc9MzAwMCZhdXRv/PWZvcm1hdCZmaXQ9/Y3JvcCZpeGxpYj1y/Yi00LjEuMCZpeGlk/PU0zd3hNakEzZkRC/OE1IeHpaV0Z5WTJo/OE1UUjhmSFJvY205/M0pUSXdjR2xzYkc5/M2ZHVnVmREI4ZkRC/OGZId3c",
@@ -144,7 +145,7 @@ class ProductList extends Component {
   }
 
   renderProducts() {
-    for (const prod of this.products) {
+    for (const prod of this.#products) {
       new ProductItem(prod, "prod-list");
     }
   }
@@ -153,7 +154,7 @@ class ProductList extends Component {
     this.createRootElement("ul", "product-list", [
       new ElementAttribute("id", "prod-list"),
     ]);
-    if (this.products && this.products.length > 0) {
+    if (this.#products && this.#products.length > 0) {
       this.renderProducts();
     }
   }
@@ -163,9 +164,10 @@ class Shop {
   constructor() {
     this.render();
   }
+
   render() {
     this.cart = new ShoopingCart("app");
-    const productList = new ProductList("app");
+    new ProductList("app");
   }
 }
 
@@ -176,6 +178,7 @@ class App {
     const shop = new Shop();
     this.cart = shop.cart;
   }
+
   static addProductToCart(product) {
     this.cart.addProduct(product);
   }
