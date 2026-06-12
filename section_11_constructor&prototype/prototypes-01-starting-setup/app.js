@@ -1,13 +1,20 @@
-// class Person {
-//   name = 'Max';
+// class AgedPerson {
+//   printAge() {
+//     console.log(this.age);
+//   }
+// }
+//
+// class Person extends AgedPerson {
+//   name = "Max";
 //
 //   constructor() {
+//     super();
 //     this.age = 30;
 //   }
 //
 //   greet() {
 //     console.log(
-//       'Hi, I am ' + this.name + ' and I am ' + this.age + ' years old.'
+//       "Hi, I am " + this.name + " and I am " + this.age + " years old.",
 //     );
 //   }
 // }
