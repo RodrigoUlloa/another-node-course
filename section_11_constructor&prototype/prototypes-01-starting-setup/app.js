@@ -11,8 +11,7 @@
 //     );
 //   }
 // }
-function person() {
-  this = {};
+function Person() {
   this.age = 30;
   this.name = "Max";
   this.greet = function () {
@@ -22,5 +21,15 @@ function person() {
   };
 }
 
-const p = new person();
+Person.prototype = {
+  printAge() {
+    console.log(this.age);
+  },
+};
+
+console.dir(Person);
+
+const p = new Person();
 p.greet();
+p.printAge();
+console.log(p.__proto__);
