@@ -1,10 +1,11 @@
-const button = document.querySelector("button");
+const buttons = document.querySelectorAll("button");
 // button.onclick = function() {
 //
 // };
 
-const buttonClickHandler = () => {
-  alert("Button was clicked!");
+const buttonClickHandler = (event) => {
+  event.target.disabled = true;
+  console.log(event);
 };
 
 const antoherButtonClickHandler = () => {
@@ -16,8 +17,12 @@ const antoherButtonClickHandler = () => {
 
 const boundFn = buttonClickHandler.bind(this);
 
-button.addEventListener("click", buttonClickHandler.bind(this));
+//button.addEventListener("click", buttonClickHandler);
 
-setTimeout(() => {
-  button.removeEventListener("click", buttonClickHandler.bind(this));
-}, 2000);
+// setTimeout(() => {
+//   button.removeEventListener("click", buttonClickHandler);
+// }, 2000);
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", buttonClickHandler);
+});
