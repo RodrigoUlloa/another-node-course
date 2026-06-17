@@ -3,17 +3,21 @@ const button = document.querySelector("button");
 //
 // };
 
-// const buttonClickHandler = () => {
-//   alert("Button was clicked!");
-// };
-//
-// const antoherButtonClickHandler = () => {
-//   console.log("This was clicked");
-// };
+const buttonClickHandler = () => {
+  alert("Button was clicked!");
+};
+
+const antoherButtonClickHandler = () => {
+  console.log("This was clicked");
+};
 //
 // button.onclick = buttonClickHandler;
 // button.onclick = antoherButtonClickHandler;
 
-button.addEventListener();
+const boundFn = buttonClickHandler.bind(this);
 
-//button.removeEventListener();
+button.addEventListener("click", buttonClickHandler.bind(this));
+
+setTimeout(() => {
+  button.removeEventListener("click", buttonClickHandler.bind(this));
+}, 2000);
