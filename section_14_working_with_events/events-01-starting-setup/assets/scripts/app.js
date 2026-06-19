@@ -9,7 +9,7 @@ class DOMHelper {
     const element = document.getElementById(elementId);
     const destinationElement = document.querySelector(newDestinationSelector);
     destinationElement.append(element);
-    element.scrollIntoView({ behavior: 'smooth' });
+    element.scrollIntoView({ behavior: "smooth" });
   }
 }
 
@@ -32,8 +32,8 @@ class Component {
 
   attach() {
     this.hostElement.insertAdjacentElement(
-      this.insertBefore ? 'afterbegin' : 'beforeend',
-      this.element
+      this.insertBefore ? "afterbegin" : "beforeend",
+      this.element,
     );
   }
 }
@@ -52,11 +52,11 @@ class Tooltip extends Component {
   };
 
   create() {
-    const tooltipElement = document.createElement('div');
-    tooltipElement.className = 'card';
-    const tooltipTemplate = document.getElementById('tooltip');
+    const tooltipElement = document.createElement("div");
+    tooltipElement.className = "card";
+    const tooltipTemplate = document.getElementById("tooltip");
     const tooltipBody = document.importNode(tooltipTemplate.content, true);
-    tooltipBody.querySelector('p').textContent = this.text;
+    tooltipBody.querySelector("p").textContent = this.text;
     tooltipElement.append(tooltipBody);
 
     const hostElPosLeft = this.hostElement.offsetLeft;
@@ -67,11 +67,11 @@ class Tooltip extends Component {
     const x = hostElPosLeft + 20;
     const y = hostElPosTop + hostElHeight - parentElementScrolling - 10;
 
-    tooltipElement.style.position = 'absolute';
-    tooltipElement.style.left = x + 'px'; // 500px
-    tooltipElement.style.top = y + 'px';
+    tooltipElement.style.position = "absolute";
+    tooltipElement.style.left = x + "px"; // 500px
+    tooltipElement.style.top = y + "px";
 
-    tooltipElement.addEventListener('click', this.closeTooltip);
+    tooltipElement.addEventListener("click", this.closeTooltip);
     this.element = tooltipElement;
   }
 }
@@ -97,28 +97,35 @@ class ProjectItem {
         this.hasActiveTooltip = false;
       },
       tooltipText,
-      this.id
+      this.id,
     );
     tooltip.attach();
     this.hasActiveTooltip = true;
   }
 
+  connectDrag() {
+    document.getElementById(this.id).addEventListener("dragstart", (event) => {
+      event.dataTransfer.setData("text/plain", this.id);
+      event.dataTransfer.effectAllowed = "move";
+    });
+  }
+
   connectMoreInfoButton() {
     const projectItemElement = document.getElementById(this.id);
     const moreInfoBtn = projectItemElement.querySelector(
-      'button:first-of-type'
+      "button:first-of-type",
     );
-    moreInfoBtn.addEventListener('click', this.showMoreInfoHandler.bind(this));
+    moreInfoBtn.addEventListener("click", this.showMoreInfoHandler.bind(this));
   }
 
   connectSwitchButton(type) {
     const projectItemElement = document.getElementById(this.id);
-    let switchBtn = projectItemElement.querySelector('button:last-of-type');
+    let switchBtn = projectItemElement.querySelector("button:last-of-type");
     switchBtn = DOMHelper.clearEventListeners(switchBtn);
-    switchBtn.textContent = type === 'active' ? 'Finish' : 'Activate';
+    switchBtn.textContent = type === "active" ? "Finish" : "Activate";
     switchBtn.addEventListener(
-      'click',
-      this.updateProjectListsHandler.bind(null, this.id)
+      "click",
+      this.updateProjectListsHandler.bind(null, this.id),
     );
   }
 
@@ -136,7 +143,7 @@ class ProjectList {
     const prjItems = document.querySelectorAll(`#${type}-projects li`);
     for (const prjItem of prjItems) {
       this.projects.push(
-        new ProjectItem(prjItem.id, this.switchProject.bind(this), this.type)
+        new ProjectItem(prjItem.id, this.switchProject.bind(this), this.type),
       );
     }
     console.log(this.projects);
@@ -155,32 +162,34 @@ class ProjectList {
   switchProject(projectId) {
     // const projectIndex = this.projects.findIndex(p => p.id === projectId);
     // this.projects.splice(projectIndex, 1);
-    this.switchHandler(this.projects.find(p => p.id === projectId));
-    this.projects = this.projects.filter(p => p.id !== projectId);
+    this.switchHandler(this.projects.find((p) => p.id === projectId));
+    this.projects = this.projects.filter((p) => p.id !== projectId);
   }
 }
 
 class App {
   static init() {
-    const activeProjectsList = new ProjectList('active');
-    const finishedProjectsList = new ProjectList('finished');
+    const activeProjectsList = new ProjectList("active");
+    const finishedProjectsList = new ProjectList("finished");
     activeProjectsList.setSwitchHandlerFunction(
-      finishedProjectsList.addProject.bind(finishedProjectsList)
+      finishedProjectsList.addProject.bind(finishedProjectsList),
     );
     finishedProjectsList.setSwitchHandlerFunction(
-      activeProjectsList.addProject.bind(activeProjectsList)
+      activeProjectsList.addProject.bind(activeProjectsList),
     );
 
     const timerId = setTimeout(this.startAnalytics, 3000);
 
-    document.getElementById('stop-analytics-btn').addEventListener('click', () => {
-      clearTimeout(timerId);
-    });
+    document
+      .getElementById("stop-analytics-btn")
+      .addEventListener("click", () => {
+        clearTimeout(timerId);
+      });
   }
 
   static startAnalytics() {
-    const analyticsScript = document.createElement('script');
-    analyticsScript.src = 'assets/scripts/analytics.js';
+    const analyticsScript = document.createElement("script");
+    analyticsScript.src = "assets/scripts/analytics.js";
     analyticsScript.defer = true;
     document.head.append(analyticsScript);
   }
