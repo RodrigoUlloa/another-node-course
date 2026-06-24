@@ -60,3 +60,63 @@ let name = "Maximilian";
 userName = "Manuel";
 
 greetUser();
+
+// function powerOf(x, n) {
+//   let result = 1;
+
+//   for (let i = 0; i < n; i++) {
+//     result *= x;
+//   }
+//   return result;
+// }
+
+function powerOf(x, n) {
+  // if (n === 1) {
+  //   return x;
+  // }
+  // return x * powerOf(x, n - 1);
+
+  return n === 0 ? 1 : x * powerOf(x, n - 1);
+}
+
+console.log(powerOf(2, 3));
+
+const myself = {
+  name: "Max",
+  friends: [
+    {
+      name: "Manuel",
+      friends: [
+        {
+          name: "chris",
+          friends: [
+            {
+              name: "Hari",
+            },
+            {
+              name: "Amilia",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Julia",
+    },
+  ],
+};
+
+function getFriendNames(person) {
+  const collectedNames = [];
+
+  if (!person.friends) {
+    return [];
+  }
+
+  for (const friend of person.friends) {
+    collectedNames.push(friend.name);
+    collectedNames.push(...getFriendNames(friend));
+  }
+  return collectedNames;
+}
+console.log(getFriendNames(myself));
