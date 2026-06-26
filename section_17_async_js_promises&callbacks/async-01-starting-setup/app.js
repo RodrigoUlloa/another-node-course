@@ -7,7 +7,9 @@ const getPosition = (opts) => {
       (succes) => {
         resolve(succes);
       },
-      (error) => {},
+      (error) => {
+        reject(error);
+      },
       opts,
     );
   });
@@ -29,6 +31,10 @@ function trackUserHandler() {
     .then((posData) => {
       positionData = posData;
       return setTimer(2000);
+    })
+    .catch((err) => {
+      console.log(err);
+      return "on we goo...";
     })
     .then((data) => {
       console.log(data, positionData);
